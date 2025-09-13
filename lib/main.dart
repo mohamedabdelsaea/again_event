@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(scaffoldBackgroundColor: AppColor.white),
       debugShowCheckedModeBanner: false,
-      initialRoute: PageRouteName.initial,
+      initialRoute: PageRouteName.layout,
       onGenerateRoute: AppRoutes.onGenerateRoute,
     );
   }
