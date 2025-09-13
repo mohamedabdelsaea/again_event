@@ -8,7 +8,6 @@ class SignIn extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: AppColor.white,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
