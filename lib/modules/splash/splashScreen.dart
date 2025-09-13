@@ -30,7 +30,6 @@ class _SplashscreenState extends State<Splashscreen> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: AppColor.white,
       body: Center(
         child: Image.asset(
           'assets/images/Logo.png',

@@ -1,6 +1,7 @@
 import 'package:again_evently/core/routes/page_route_name.dart';
 import 'package:again_evently/modules/forget_password/forget_password.dart';
 import 'package:again_evently/modules/layout/layout.dart';
+import 'package:again_evently/modules/layout/new_event/new_event.dart';
 import 'package:again_evently/modules/sign_in/sign_in.dart';
 import 'package:again_evently/modules/sign_up/sign_up.dart';
 import 'package:again_evently/modules/splash/splashScreen.dart';
@@ -19,6 +20,8 @@ class AppRoutes {
         return MaterialPageRoute(builder: (context) => SignUp());
       case PageRouteName.forgetPassword:
         return MaterialPageRoute(builder: (context) => ForgetPassword());
+     case PageRouteName.newEvent:
+        return MaterialPageRoute(builder: (context) => NewEvent());
       default:
         return MaterialPageRoute(
           builder: (context) => Splashscreen(),

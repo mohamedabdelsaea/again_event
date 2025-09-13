@@ -15,7 +15,6 @@ class _SignUpState extends State<SignUp> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: AppColor.white,
       appBar: AppBar(
         backgroundColor: AppColor.white,
         centerTitle: true,
