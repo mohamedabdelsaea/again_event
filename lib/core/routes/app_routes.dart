@@ -16,6 +16,8 @@ class AppRoutes {
         return MaterialPageRoute(builder: (context) => SignIn());
       case PageRouteName.signUp:
         return MaterialPageRoute(builder: (context) => SignUp());
+   case PageRouteName.newEvent:
+        return MaterialPageRoute(builder: (context) => SignUp());
       default:
         return MaterialPageRoute(
           builder: (context) => Splashscreen(),
