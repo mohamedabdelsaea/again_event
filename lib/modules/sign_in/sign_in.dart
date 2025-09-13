@@ -1,8 +1,16 @@
+import 'package:again_evently/core/routes/page_route_name.dart';
 import 'package:again_evently/core/theme/app_color.dart';
 import 'package:flutter/material.dart';
 
-class SignIn extends StatelessWidget {
+class SignIn extends StatefulWidget {
   const SignIn({super.key});
+
+  @override
+  State<SignIn> createState() => _SignInState();
+}
+
+class _SignInState extends State<SignIn> {
+  bool _isPassword = false;
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +32,13 @@ class SignIn extends StatelessWidget {
               // obscureText: true,
               decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: AppColor.lastColor),
+                  borderSide: BorderSide(color: AppColor.primary),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 hintText: 'E mail',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(color: AppColor.primary),
                 ),
                 prefixIcon: Padding(
                   padding: const EdgeInsets.only(left: 20.0, right: 10),
@@ -43,16 +52,29 @@ class SignIn extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: TextFormField(
-              obscureText: true,
+              obscureText: !_isPassword,
               decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: AppColor.lastColor),
+                  borderSide: BorderSide(color: AppColor.primary),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 hintText: 'Password',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(color: AppColor.primary),
                 ),
+                fillColor: AppColor.primary,
+                suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        _isPassword = !_isPassword;
+                      });
+                    },
+                    icon: ImageIcon(AssetImage(
+                      _isPassword
+                          ? 'assets/icons/eye-slash.png'
+                          : 'assets/icons/eye-slash.png',
+                    ))),
                 prefixIcon: Padding(
                   padding: const EdgeInsets.only(left: 20.0, right: 10),
                   child: ImageIcon(
@@ -66,7 +88,9 @@ class SignIn extends StatelessWidget {
           Align(
             alignment: Alignment.centerRight,
             child: TextButton(
-              onPressed: () => Navigator.pushNamed,
+              onPressed: () {
+                Navigator.pushNamed(context, PageRouteName.forgetPassword);
+              },
               child: Text(
                 'Forget Password?',
                 style: TextStyle(
@@ -79,6 +103,13 @@ class SignIn extends StatelessWidget {
           ),
           SizedBox(height: size.height * 0.03),
           GestureDetector(
+            onTap: () {
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                PageRouteName.layout,
+                (route) => false,
+              );
+            },
             child: Container(
               height: size.height * 0.08,
               width: size.width * 0.9,
@@ -110,7 +141,9 @@ class SignIn extends StatelessWidget {
               ),
               SizedBox(width: size.width * 0.02),
               TextButton(
-                onPressed: () => Navigator.pushNamed,
+                onPressed: () {
+                  Navigator.pushNamed(context, PageRouteName.signUp);
+                },
                 child: Text(
                   'Create Account',
                   style: TextStyle(
@@ -179,9 +212,9 @@ class SignIn extends StatelessWidget {
                 side: BorderSide(
                   color: AppColor.primary,
                 ),
-                padding: EdgeInsets.symmetric(
-                    vertical: size.height * 0.03),
-              ), onPressed: () { },
+                padding: EdgeInsets.symmetric(vertical: size.height * 0.03),
+              ),
+              onPressed: () {},
             ),
           ),
         ],
