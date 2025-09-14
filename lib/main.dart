@@ -1,11 +1,15 @@
 import 'package:again_evently/core/routes/app_routes.dart';
 import 'package:again_evently/core/routes/page_route_name.dart';
 import 'package:again_evently/core/theme/app_color.dart';
+import 'package:again_evently/modules/provider/setting_provider.dart';
 import 'package:again_evently/modules/splash/splashScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+      create: (context) => SettingProvider(),
+      child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -17,7 +21,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(scaffoldBackgroundColor: AppColor.white),
       debugShowCheckedModeBanner: false,
-      initialRoute: PageRouteName.layout,
+      initialRoute: PageRouteName.newEvent,
       onGenerateRoute: AppRoutes.onGenerateRoute,
     );
   }

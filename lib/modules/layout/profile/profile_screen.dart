@@ -1,9 +1,9 @@
 import 'dart:developer';
-
 import 'package:again_evently/core/routes/page_route_name.dart';
+import 'package:again_evently/modules/provider/setting_provider.dart';
 import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
 import '../../../core/theme/app_color.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -12,14 +12,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    List<String> language = [
-      'Arabic',
-      'English',
-    ];
-    List<String> theme = [
-      'Light',
-      'Dark',
-    ];
+    var provider =Provider.of<SettingProvider>(context);
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,7 +69,7 @@ class ProfileScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: CustomDropdown(
-              items: language,
+              items: provider.language,
               hintText: 'Language',
               decoration: CustomDropdownDecoration(
                   closedSuffixIcon: Icon(
@@ -91,7 +84,7 @@ class ProfileScreen extends StatelessWidget {
                   closedBorder: Border.all(color: AppColor.primary),
                   hintStyle: TextStyle(color: AppColor.primary, fontSize: 16)),
               onChanged: (value) {
-                log('$language');
+                log('language');
               },
             ),
           ),
@@ -110,7 +103,7 @@ class ProfileScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: CustomDropdown(
-              items: theme,
+              items: provider.theme,
               hintText: 'Theme',
               decoration: CustomDropdownDecoration(
                   closedSuffixIcon: Icon(
@@ -125,7 +118,7 @@ class ProfileScreen extends StatelessWidget {
                   closedBorder: Border.all(color: AppColor.primary),
                   hintStyle: TextStyle(color: AppColor.primary, fontSize: 16)),
               onChanged: (value) {
-                log('$language');
+                log('theme');
               },
             ),
           ),

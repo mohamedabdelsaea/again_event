@@ -1,18 +1,31 @@
+import 'package:again_evently/core/routes/page_route_name.dart';
+import 'package:again_evently/core/theme/app_color.dart';
+import 'package:again_evently/modules/layout/widgets/custom_create_tap.dart';
+import 'package:again_evently/modules/provider/setting_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import '../../../core/theme/app_color.dart';
-
-class NewEvent extends StatelessWidget {
+class NewEvent extends StatefulWidget {
   const NewEvent({super.key});
 
   @override
+  State<NewEvent> createState() => _NewEventState();
+}
+
+class _NewEventState extends State<NewEvent> {
+  int selectedIndex = 0;
+
+  @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+    var provider = Provider.of<SettingProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColor.white,
         centerTitle: true,
         title: Text(
-          'Create Even',
+          'Create Event',
           style: TextStyle(
             fontWeight: FontWeight.w500,
             fontSize: 22,
@@ -20,10 +33,182 @@ class NewEvent extends StatelessWidget {
           ),
         ),
         leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: Icon(Icons.arrow_back,color: AppColor.primary),
+          onPressed: () => Navigator.pop(context),
+          icon: Icon(Icons.arrow_back, color: AppColor.primary),
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                height: size.height * 0.3,
+                padding: EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(22),
+                  image: DecorationImage(
+                    image: AssetImage(
+                      provider.eventCategoryList[selectedIndex].img,
+                    ),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              SizedBox(height: 10),
+              DefaultTabController(
+                length: provider.eventCategoryList.length,
+                child: TabBar(
+                  isScrollable: true,
+                  dividerColor: AppColor.white,
+                  indicatorColor: AppColor.white,
+                  tabAlignment: TabAlignment.start,
+                  onTap: (index) {
+                    setState(() {
+                      selectedIndex = index;
+                    });
+                  },
+                  tabs: provider.eventCategoryList.map((category) {
+                    return CustomCreateTap(
+                      text: category.name,
+                      isColor: provider.eventCategoryList.indexOf(category) ==
+                          selectedIndex,
+                    );
+                  }).toList(),
+                ),
+              ),
+              SizedBox(height: 20),
+              Text(
+                'Title',
+                style: TextStyle(
+                  color: AppColor.primary,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
+              SizedBox(height: 20),
+              TextFormField(
+                decoration: InputDecoration(
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: AppColor.primary),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  hintText: 'Event Title',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: AppColor.primary),
+                  ),
+                  prefixIcon: Padding(
+                    padding: const EdgeInsets.only(left: 20.0, right: 10),
+                    child: Icon(Icons.add_comment_outlined),
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
+              Text(
+                'Description',
+                style: TextStyle(
+                  color: AppColor.primary,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
+              SizedBox(height: 20),
+              TextFormField(
+                maxLines: 4,
+                decoration: InputDecoration(
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: AppColor.primary),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  hintText: 'Event Description',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: AppColor.primary),
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
+              Row(
+                children: [
+                  Icon(Icons.calendar_month),
+                  SizedBox(width: 10),
+                  Text(
+                    'Event Date',
+                    style: TextStyle(
+                      color: AppColor.black,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 18,
+                    ),
+                  ),
+                  Spacer(),
+                  TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      'Choose Date',
+                      style: TextStyle(
+                        color: AppColor.primary,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 18,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              SizedBox(height: 10),
+              Row(
+                children: [
+                  Icon(Icons.access_time),
+                  SizedBox(width: 10),
+                  Text(
+                    'Event Time',
+                    style: TextStyle(
+                      color: AppColor.black,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 18,
+                    ),
+                  ),
+                  Spacer(),
+                  TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      'Choose Time',
+                      style: TextStyle(
+                        color: AppColor.primary,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 20),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, PageRouteName.layout);
+                },
+                child: Container(
+                  height: size.height * 0.08,
+                  width: size.width * 0.9,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: AppColor.primary,
+                    borderRadius: BorderRadius.circular(14),
+                  ),
+                  child: Text(
+                    'Add Event',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 22,
+                      color: AppColor.white,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
+            ],
+          ),
         ),
       ),
     );
