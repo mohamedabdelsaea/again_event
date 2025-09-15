@@ -3,6 +3,7 @@ import 'package:again_evently/core/theme/app_color.dart';
 import 'package:again_evently/modules/layout/widgets/custom_create_tap.dart';
 import 'package:again_evently/modules/provider/setting_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class NewEvent extends StatefulWidget {
@@ -144,9 +145,14 @@ class _NewEventState extends State<NewEvent> {
                   ),
                   Spacer(),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      provider.selectedEvenDate(context);
+                    },
                     child: Text(
-                      'Choose Date',
+                      provider.selectedDate != null
+                          ? DateFormat('dd MMM yyy')
+                              .format(provider.selectedDate!)
+                          : 'Choose Date',
                       style: TextStyle(
                         color: AppColor.primary,
                         fontWeight: FontWeight.w700,
@@ -171,9 +177,13 @@ class _NewEventState extends State<NewEvent> {
                   ),
                   Spacer(),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      provider.selectedDateTime(context);
+                    },
                     child: Text(
-                      'Choose Time',
+                      provider.timeOfDay != null
+                          ? provider.timeOfDay!.format(context)
+                          : 'Choose Time',
                       style: TextStyle(
                         color: AppColor.primary,
                         fontWeight: FontWeight.w700,
@@ -181,6 +191,7 @@ class _NewEventState extends State<NewEvent> {
                       ),
                     ),
                   ),
+
                 ],
               ),
               SizedBox(height: 20),
