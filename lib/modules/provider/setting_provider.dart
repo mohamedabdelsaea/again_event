@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:again_evently/modules/layout/widgets/event_category.dart';
 import 'package:flutter/material.dart';
 import '../layout/favourite/favourite_Screen.dart';
