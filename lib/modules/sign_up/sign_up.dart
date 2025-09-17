@@ -1,8 +1,10 @@
 import 'package:again_evently/core/routes/page_route_name.dart';
 import 'package:again_evently/core/theme/app_color.dart';
 import 'package:again_evently/modules/fire_base/auth_firebase.dart';
+import 'package:again_evently/modules/provider/setting_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:provider/provider.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -12,15 +14,12 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  bool _isPasswordVisible = false;
+  bool _isPassword = false;
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    final _formKey = GlobalKey<FormState>();
-    var _nameControleer = TextEditingController();
-    var _emailControleer = TextEditingController();
-    var _passwordControleer = TextEditingController();
+    var provider = Provider.of<SettingProvider>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColor.white,
@@ -41,7 +40,7 @@ class _SignUpState extends State<SignUp> {
         ),
       ),
       body: Form(
-        key: _formKey,
+        key: provider.formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -61,7 +60,7 @@ class _SignUpState extends State<SignUp> {
                   }
                   return null;
                 },
-                controller: _nameControleer,
+                controller: provider.nameController,
                 decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: AppColor.primary),
@@ -91,7 +90,7 @@ class _SignUpState extends State<SignUp> {
                   }
                   return null;
                 },
-                controller: _emailControleer,
+                controller: provider.emailController,
                 decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: AppColor.primary),
@@ -121,8 +120,8 @@ class _SignUpState extends State<SignUp> {
                   }
                   return null;
                 },
-                obscureText: !_isPasswordVisible,
-                controller: _passwordControleer,
+                obscureText: _isPassword,
+                controller: provider.passwordController,
                 decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: AppColor.primary),
@@ -142,12 +141,12 @@ class _SignUpState extends State<SignUp> {
                   suffixIcon: IconButton(
                     onPressed: () {
                       setState(() {
-                        _isPasswordVisible = !_isPasswordVisible;
+                        _isPassword = !_isPassword;
                       });
                     },
                     icon: ImageIcon(
                       AssetImage(
-                        _isPasswordVisible
+                        _isPassword
                             ? 'assets/icons/eye-slash.png'
                             : 'assets/icons/eye-slash.png',
                       ),
@@ -164,11 +163,12 @@ class _SignUpState extends State<SignUp> {
                   if (value == null || value.trim().isEmpty) {
                     return 'plz enter re password';
                   }
-                  if (value != _passwordControleer.text) {
+                  if (value != provider.passwordController) {
                     return 'the password is not match';
                   }
+                  return null;
                 },
-                obscureText: !_isPasswordVisible,
+                obscureText: _isPassword,
                 decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: AppColor.primary),
@@ -188,12 +188,12 @@ class _SignUpState extends State<SignUp> {
                   suffixIcon: IconButton(
                     onPressed: () {
                       setState(() {
-                        _isPasswordVisible = !_isPasswordVisible;
+                        _isPassword = !_isPassword;
                       });
                     },
                     icon: ImageIcon(
                       AssetImage(
-                        _isPasswordVisible
+                        _isPassword
                             ? 'assets/icons/eye-slash.png'
                             : 'assets/icons/eye-slash.png',
                       ),
@@ -205,10 +205,10 @@ class _SignUpState extends State<SignUp> {
             const SizedBox(height: 15),
             GestureDetector(
               onTap: () {
-                if (_formKey.currentState!.validate()) {
-                  AuthFirebase.signUp(
-                          email: _emailControleer.text,
-                          password: _passwordControleer.text)
+                if (provider.formKey.currentState!.validate()) {
+                  AuthFirebase.createAccount(
+                          email: provider.emailController.text,
+                          password: provider.passwordController.text)
                       .then(
                     (value) {
                       EasyLoading.dismiss();

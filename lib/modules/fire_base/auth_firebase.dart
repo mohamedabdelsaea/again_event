@@ -1,12 +1,10 @@
 import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-
 import '../../core/services/snack_bar_service.dart';
 
 class AuthFirebase {
-  static Future<bool> signUp({
+  static Future<bool> createAccount({
     required String email,
     required String password,
   }) async {
@@ -16,40 +14,54 @@ class AuthFirebase {
         email: email,
         password: password,
       );
-      User? user = FirebaseAuth.instance.currentUser;
 
       EasyLoading.dismiss();
-      return Future.value(true);
+      return true;
     } on FirebaseAuthException catch (e) {
+      EasyLoading.dismiss();
       if (e.code == 'weak-password') {
         SnackBarService.showErrorMessage(
             e.message ?? 'The password provided is too weak.');
-
-        print('The password provided is too weak.');
-        return Future.value(false);
+        return false;
       } else if (e.code == 'email-already-in-use') {
         SnackBarService.showErrorMessage(
             e.message ?? 'The account already exists for that email.');
-        print('The account already exists for that email.');
-        return Future.value(false);
+        return false;
       }
-      return Future.value(false);
+      return false;
     } catch (e) {
-      return Future.value(false);
+      EasyLoading.dismiss();
+      return false;
     }
   }
 
-  Future<void> signIn(String name, String email, String password) async {
+  Future<bool> signIn({
+    required String email,
+    required String password,
+  }) async {
+    EasyLoading.show();
     try {
       UserCredential userCredential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-      User? user = FirebaseAuth.instance.currentUser;
+
+      User? user = userCredential.user;
+      EasyLoading.dismiss();
+
       if (user != null) {
-        log('${user.uid}');
+        log('Signed in: ${user.uid}');
+        return true;
       }
-    } catch (e) {}
+      return false;
+    } on FirebaseAuthException catch (e) {
+      EasyLoading.dismiss();
+      SnackBarService.showErrorMessage(e.message ?? 'Login failed');
+      return false;
+    } catch (e) {
+      EasyLoading.dismiss();
+      return false;
+    }
   }
 }

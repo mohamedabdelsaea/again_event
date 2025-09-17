@@ -10,6 +10,11 @@ class SettingProvider extends ChangeNotifier {
   DateTime? _selectedDate;
   TimeOfDay? _timeOfDay;
 
+  final _formKey = GlobalKey<FormState>();
+  var _nameControleer = TextEditingController();
+  var _emailControleer = TextEditingController();
+  var _passwordControleer = TextEditingController();
+
   List<String> _language = [
     'Arabic',
     'English',
@@ -37,6 +42,15 @@ class SettingProvider extends ChangeNotifier {
   ];
 
   DateTime? get selectedDate => _selectedDate;
+
+  get formKey => _formKey;
+
+  get nameController => _nameControleer;
+
+  get emailController => _emailControleer;
+
+  get passwordController => _passwordControleer;
+
 
   TimeOfDay? get timeOfDay => _timeOfDay;
 

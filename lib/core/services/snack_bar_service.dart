@@ -40,7 +40,7 @@ class SnackBarService {
                       Expanded(
                         flex: 1,
                         child: Lottie.asset(
-                          "assets/icons/face_success_icon.json",
+                          "assets/json/face_success_icon.json",
                           repeat: false,
                           height: 250,
                           width: 250,
@@ -110,7 +110,7 @@ class SnackBarService {
                       Expanded(
                         flex: 1,
                         child: Lottie.asset(
-                          "assets/icons/face_success_icon.json",
+                          "assets/json/face_success_icon.json",
                           repeat: false,
                           height: 250,
                           width: 250,
@@ -208,7 +208,7 @@ class SnackBarService {
                       Expanded(
                         flex: 1,
                         child: Lottie.asset(
-                          "assets/icons/face_wrong_icon.json",
+                          "assets/json/face_wrong_icon.json",
                           repeat: true,
                           height: 250,
                           width: 250,
@@ -279,7 +279,7 @@ class SnackBarService {
                       Expanded(
                         flex: 1,
                         child: Lottie.asset(
-                          "assets/icons/face_wrong_icon.json",
+                          "assets/json/face_wrong_icon.json",
                           width: 200,
                           height: 200,
                           repeat: false,
