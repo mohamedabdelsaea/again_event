@@ -1,10 +1,10 @@
+import 'dart:developer';
 import 'package:again_evently/core/routes/page_route_name.dart';
 import 'package:again_evently/core/theme/app_color.dart';
-import 'package:again_evently/modules/fire_base/auth_firebase.dart';
-import 'package:again_evently/modules/provider/setting_provider.dart';
+import 'package:again_evently/core/widgets/validation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:provider/provider.dart';
+import '../../core/utils/fire_base/auth_firebase.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -15,11 +15,14 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   bool _isPassword = false;
+  final _formKey = GlobalKey<FormState>();
+  var _nameController = TextEditingController();
+  var _emailController = TextEditingController();
+  var _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    var provider = Provider.of<SettingProvider>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColor.white,
@@ -40,7 +43,7 @@ class _SignUpState extends State<SignUp> {
         ),
       ),
       body: Form(
-        key: provider.formKey,
+        key: _formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -60,7 +63,7 @@ class _SignUpState extends State<SignUp> {
                   }
                   return null;
                 },
-                controller: provider.nameController,
+                controller: _nameController,
                 decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: AppColor.primary),
@@ -88,9 +91,12 @@ class _SignUpState extends State<SignUp> {
                   if (value == null || value.trim().isEmpty) {
                     return 'plz enter Email';
                   }
+                  if (!Validation.validateEmail(value)) {
+                    return '^[a-zA-Z0-9_%+-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}';
+                  }
                   return null;
                 },
-                controller: provider.emailController,
+                controller: _emailController,
                 decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: AppColor.primary),
@@ -118,10 +124,13 @@ class _SignUpState extends State<SignUp> {
                   if (value == null || value.trim().isEmpty) {
                     return 'plz enter password';
                   }
+                  if (!Validation.validatePassword(value)) {
+                    return '^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d]{8,}';
+                  }
                   return null;
                 },
                 obscureText: _isPassword,
-                controller: provider.passwordController,
+                controller: _passwordController,
                 decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: AppColor.primary),
@@ -163,7 +172,7 @@ class _SignUpState extends State<SignUp> {
                   if (value == null || value.trim().isEmpty) {
                     return 'plz enter re password';
                   }
-                  if (value != provider.passwordController) {
+                  if (value != _passwordController.text) {
                     return 'the password is not match';
                   }
                   return null;
@@ -205,16 +214,22 @@ class _SignUpState extends State<SignUp> {
             const SizedBox(height: 15),
             GestureDetector(
               onTap: () {
-                if (provider.formKey.currentState!.validate()) {
+                if (_formKey.currentState!.validate()) {
+                  log('successfully');
                   AuthFirebase.createAccount(
-                          email: provider.emailController.text,
-                          password: provider.passwordController.text)
+                          email: _emailController.text,
+                          password: _passwordController.text)
                       .then(
                     (value) {
                       EasyLoading.dismiss();
-                      if (value = true) {
-                        Navigator.pushNamed(context, PageRouteName.signIn);
+                      if (value == true) {
+                        Navigator.pushNamedAndRemoveUntil(
+                          context,
+                          PageRouteName.signIn,
+                          (route) => false,
+                        );
                       }
+                      return false;
                     },
                   );
                 }

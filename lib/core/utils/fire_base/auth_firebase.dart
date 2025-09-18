@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import '../../core/services/snack_bar_service.dart';
+import '../../services/snack_bar_service.dart';
 
 class AuthFirebase {
   static Future<bool> createAccount({
@@ -20,10 +20,12 @@ class AuthFirebase {
     } on FirebaseAuthException catch (e) {
       EasyLoading.dismiss();
       if (e.code == 'weak-password') {
+        log('The password provided is too weak.');
         SnackBarService.showErrorMessage(
             e.message ?? 'The password provided is too weak.');
         return false;
       } else if (e.code == 'email-already-in-use') {
+        log('The account already exists for that email.');
         SnackBarService.showErrorMessage(
             e.message ?? 'The account already exists for that email.');
         return false;
@@ -35,26 +37,19 @@ class AuthFirebase {
     }
   }
 
-  Future<bool> signIn({
+  static Future<bool> login({
     required String email,
     required String password,
   }) async {
     EasyLoading.show();
     try {
-      UserCredential userCredential =
-          await FirebaseAuth.instance.signInWithEmailAndPassword(
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-
-      User? user = userCredential.user;
       EasyLoading.dismiss();
-
-      if (user != null) {
-        log('Signed in: ${user.uid}');
-        return true;
-      }
-      return false;
+      SnackBarService.showSuccessMessage('successfully');
+      return true;
     } on FirebaseAuthException catch (e) {
       EasyLoading.dismiss();
       SnackBarService.showErrorMessage(e.message ?? 'Login failed');
