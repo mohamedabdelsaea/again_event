@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:again_evently/core/routes/page_route_name.dart';
-import 'package:again_evently/core/theme/app_color.dart';
 import 'package:flutter/material.dart';
 
 class Splashscreen extends StatefulWidget {

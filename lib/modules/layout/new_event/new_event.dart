@@ -1,7 +1,10 @@
 import 'package:again_evently/core/routes/page_route_name.dart';
+import 'package:again_evently/core/services/snack_bar_service.dart';
 import 'package:again_evently/core/theme/app_color.dart';
+import 'package:again_evently/core/utils/fire_base/create_event_fire_store.dart';
 import 'package:again_evently/modules/layout/widgets/custom_create_tap.dart';
 import 'package:again_evently/modules/provider/setting_provider.dart';
+import 'package:again_evently/modules/widget/even_date_model.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -96,6 +99,12 @@ class _NewEventState extends State<NewEvent> {
                 SizedBox(height: 20),
                 TextFormField(
                   controller: _titleController,
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return 'plz enter title';
+                    }
+                    return null;
+                  },
                   decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: AppColor.primary),
@@ -124,6 +133,12 @@ class _NewEventState extends State<NewEvent> {
                 SizedBox(height: 20),
                 TextFormField(
                   controller: _categoryController,
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return 'plz enter Description';
+                    }
+                    return null;
+                  },
                   maxLines: 4,
                   decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
@@ -203,7 +218,29 @@ class _NewEventState extends State<NewEvent> {
                 SizedBox(height: 20),
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, PageRouteName.layout);
+                    if (_formKey.currentState!.validate() &&
+                        provider.selectedDate != null &&
+                        provider.timeOfDay != null) {
+                      EvenDateModel data = EvenDateModel(
+                        Id: provider.eventCategoryList[selectedIndex].name,
+                        title: _titleController.text,
+                        image: provider.eventCategoryList[selectedIndex].img,
+                        category: _categoryController.text,
+                        dateTime: provider.selectedDate!,
+                        timeOfDay: provider.timeOfDay!,
+                      );
+                      CreateEventFireStore.createNewEvent(data).then(
+                        (value) {
+                          if (value == true) {
+                            Navigator.pushNamed(context, PageRouteName.layout);
+                            SnackBarService.showSuccessMessage(
+                                'successfully created');
+                          } else {
+                            SnackBarService.showErrorMessage('field');
+                          }
+                        },
+                      );
+                    }
                   },
                   child: Container(
                     height: size.height * 0.08,

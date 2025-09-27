@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class EvenDateModel {
-  late final String Id;
+  String Id;
   final String title;
   final String image;
   final String category;
@@ -18,15 +19,16 @@ class EvenDateModel {
     required this.timeOfDay,
   });
 
-  factory EvenDateModel.fromFireStore(Map<String, dynamic> json) =>
-      EvenDateModel(
-        Id: json['Id'],
-        title: json['title'],
-        image: json['image'],
-        category: json['category'],
-        dateTime: json['dateTime'],
-        timeOfDay: json['timeOfDay'],
-      );
+  factory EvenDateModel.fromFireStore(Map<String, dynamic> json) {
+    return EvenDateModel(
+      Id: json['Id'] ?? '',
+      title: json['title'] ?? '',
+      image: json['image'] ?? '',
+      category: json['category'] ?? '',
+      dateTime: (json['dateTime'] as Timestamp).toDate(),
+      timeOfDay: _parseTimeOfDay(json['timeOfDay']),
+    );
+  }
 
   Map<String, dynamic> toJson() {
     return {
@@ -34,8 +36,16 @@ class EvenDateModel {
       'title': title,
       'image': image,
       'category': category,
-      'dateTime': dateTime,
-      'timeOfDay': timeOfDay,
+      'dateTime': Timestamp.fromDate(dateTime),
+      'timeOfDay': '${timeOfDay.hour}:${timeOfDay.minute}',
     };
+  }
+
+  static TimeOfDay _parseTimeOfDay(String time) {
+    final parts = time.split(":");
+    return TimeOfDay(
+      hour: int.parse(parts[0]),
+      minute: int.parse(parts[1]),
+    );
   }
 }

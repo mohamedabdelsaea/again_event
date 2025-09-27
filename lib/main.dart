@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(scaffoldBackgroundColor: AppColor.white),
       debugShowCheckedModeBanner: false,
-      initialRoute: PageRouteName.signIn,
+      initialRoute: PageRouteName.layout,
       onGenerateRoute: AppRoutes.onGenerateRoute,
       builder: EasyLoading.init(
         builder: BotToastInit(),

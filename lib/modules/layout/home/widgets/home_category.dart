@@ -1,13 +1,22 @@
+import 'package:again_evently/modules/widget/even_date_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/theme/app_color.dart';
 
-class HomeCategory extends StatelessWidget {
-  const HomeCategory({super.key});
+class HomeCategory extends StatefulWidget {
+  EvenDateModel evenDateModel ;
+   HomeCategory({super.key, required this.evenDateModel});
 
+  @override
+  State<HomeCategory> createState() => _HomeCategoryState();
+}
+
+class _HomeCategoryState extends State<HomeCategory> {
   @override
   Widget build(BuildContext context) {
     var size =MediaQuery.of(context).size;
+    final _titleController = TextEditingController();
+    final _categoryController = TextEditingController();
     return Container(
       height: size.height * 0.25,
       width: size.width * 0.9,

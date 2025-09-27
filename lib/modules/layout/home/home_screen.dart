@@ -1,4 +1,5 @@
 import 'package:again_evently/core/theme/app_color.dart';
+import 'package:again_evently/core/utils/fire_base/create_event_fire_store.dart';
 import 'package:again_evently/modules/layout/home/widgets/home_category.dart';
 import 'package:again_evently/modules/provider/setting_provider.dart';
 import 'package:flutter/material.dart';
@@ -129,17 +130,23 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             SizedBox(height: 20),
-            HomeCategory(),
-            SizedBox(height: 20),
-            HomeCategory(),
-            SizedBox(height: 20),
-            HomeCategory(),
-            SizedBox(height: 20),
-            HomeCategory(),
-            SizedBox(height: 20),
-            HomeCategory(),
-            SizedBox(height: 20),
-            HomeCategory(),
+            StreamBuilder(
+              stream: CreateEventFireStore.getEventsStream(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                }
+                if (snapshot.hasError) {
+                  return Center(child: Text("Error: ${snapshot.error}"));
+                }
+                if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                  return Center(child: Text("No events yet"));
+                }
+
+                final events = snapshot.data!;
+                return HomeCategory(evenDateModel: events[selectedIndex]);
+              },
+            ),
           ],
         ),
       ),
