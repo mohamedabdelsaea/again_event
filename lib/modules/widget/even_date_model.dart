@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
 class EvenDateModel {
   String Id;
@@ -8,7 +8,7 @@ class EvenDateModel {
   final String category;
   final DateTime dateTime;
   final TimeOfDay timeOfDay;
-  bool isFavourite = false;
+  bool isFavourite;
 
   EvenDateModel({
     required this.Id,
@@ -17,6 +17,7 @@ class EvenDateModel {
     required this.category,
     required this.dateTime,
     required this.timeOfDay,
+    this.isFavourite = false,
   });
 
   factory EvenDateModel.fromFireStore(Map<String, dynamic> json) {
@@ -27,6 +28,7 @@ class EvenDateModel {
       category: json['category'] ?? '',
       dateTime: (json['dateTime'] as Timestamp).toDate(),
       timeOfDay: _parseTimeOfDay(json['timeOfDay']),
+      isFavourite: json['isFavourite'] ?? false,
     );
   }
 
@@ -38,6 +40,7 @@ class EvenDateModel {
       'category': category,
       'dateTime': Timestamp.fromDate(dateTime),
       'timeOfDay': '${timeOfDay.hour}:${timeOfDay.minute}',
+      'isFavourite': isFavourite,
     };
   }
 

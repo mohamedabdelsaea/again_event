@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../../modules/widget/even_date_model.dart';
 
 class CreateEventFireStore {
+  // إضافة event جديد
   static Future<bool> createNewEvent(EvenDateModel data) async {
     try {
       var collectionRef = getCollectionReference();
@@ -14,6 +15,7 @@ class CreateEventFireStore {
     }
   }
 
+  // المرجع الأساسي
   static CollectionReference<EvenDateModel> getCollectionReference() {
     return FirebaseFirestore.instance
         .collection('events')
@@ -24,6 +26,7 @@ class CreateEventFireStore {
         );
   }
 
+  // جلب كل البيانات مرة واحدة
   static Future<List<EvenDateModel>> getDataFromFirestore() async {
     var collectionRef = getCollectionReference();
 
@@ -35,11 +38,25 @@ class CreateEventFireStore {
     return eventDataList;
   }
 
+  // Stream للحصول على أي تحديث مباشر
   static Stream<List<EvenDateModel>> getEventsStream() {
     var collectionRef = getCollectionReference();
 
     return collectionRef.snapshots().map((snapshot) {
       return snapshot.docs.map((doc) => doc.data()).toList();
     });
+  }
+
+  // ✅ تحديث حالة isFavourite
+  static Future<void> updateFavouriteStatus(String id, bool isFavourite) async {
+    await FirebaseFirestore.instance
+        .collection('events')
+        .doc(id)
+        .update({'isFavourite': isFavourite});
+  }
+
+  // ✅ حذف Event من Firestore
+  static Future<void> deleteEvent(String id) async {
+    await FirebaseFirestore.instance.collection('events').doc(id).delete();
   }
 }

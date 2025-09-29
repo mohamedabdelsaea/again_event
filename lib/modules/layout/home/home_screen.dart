@@ -1,5 +1,4 @@
 import 'package:again_evently/core/theme/app_color.dart';
-import 'package:again_evently/core/utils/fire_base/create_event_fire_store.dart';
 import 'package:again_evently/modules/layout/home/widgets/home_category.dart';
 import 'package:again_evently/modules/provider/setting_provider.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     var provider = Provider.of<SettingProvider>(context);
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -29,41 +29,45 @@ class _HomeScreenState extends State<HomeScreen> {
               height: size.height * 0.25,
               width: double.infinity,
               decoration: BoxDecoration(
-                  color: AppColor.primary,
-                  borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(20),
-                      bottomLeft: Radius.circular(20))),
+                color: AppColor.primary,
+                borderRadius: const BorderRadius.only(
+                  bottomRight: Radius.circular(20),
+                  bottomLeft: Radius.circular(20),
+                ),
+              ),
               child: Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 20.0, vertical: 15.0),
+                padding:
+                const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       children: [
-                        Text(
+                        const Text(
                           'Welcome Back',
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w300,
-                            color: AppColor.white,
+                            color: Colors.white,
                           ),
                         ),
-                        Spacer(),
+                        const Spacer(),
                         IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.wb_sunny_outlined,
-                              color: AppColor.white,
-                            )),
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.wb_sunny_outlined,
+                            color: Colors.white,
+                          ),
+                        ),
                         GestureDetector(
                           child: Container(
                             alignment: Alignment.center,
                             width: 40,
                             height: 40,
                             decoration: BoxDecoration(
-                                color: AppColor.white,
-                                borderRadius: BorderRadius.circular(12)),
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(12),
+                            ),
                             child: Text(
                               'EN',
                               style: TextStyle(
@@ -76,13 +80,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 5),
-                    Text(
+                    const SizedBox(height: 5),
+                    const Text(
                       'Mohamed Abdo',
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
-                        color: AppColor.white,
+                        color: Colors.white,
                       ),
                     ),
                     Row(
@@ -92,17 +96,17 @@ class _HomeScreenState extends State<HomeScreen> {
                           width: 30,
                           height: 30,
                         ),
-                        Text(
+                        const Text(
                           'Cairo , Egypt',
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w300,
-                            color: AppColor.white,
+                            color: Colors.white,
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 5),
+                    const SizedBox(height: 5),
                     DefaultTabController(
                       length: provider.eventCategoryList.length,
                       child: TabBar(
@@ -119,8 +123,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           return CustomCreateTap(
                             text: category.name,
                             isColor:
-                                provider.eventCategoryList.indexOf(category) ==
-                                    selectedIndex,
+                            provider.eventCategoryList.indexOf(category) ==
+                                selectedIndex,
                           );
                         }).toList(),
                       ),
@@ -129,24 +133,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
-            StreamBuilder(
-              stream: CreateEventFireStore.getEventsStream(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
-                }
-                if (snapshot.hasError) {
-                  return Center(child: Text("Error: ${snapshot.error}"));
-                }
-                if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                  return Center(child: Text("No events yet"));
-                }
-
-                final events = snapshot.data!;
-                return HomeCategory(evenDateModel: events[selectedIndex]);
-              },
-            ),
+            const SizedBox(height: 20),
+            HomeCategory(),
           ],
         ),
       ),
