@@ -3,6 +3,7 @@ import 'package:again_evently/core/theme/app_color.dart';
 import 'package:again_evently/modules/provider/setting_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Layout extends StatefulWidget {
   const Layout({super.key});
@@ -16,6 +17,7 @@ class _LayoutState extends State<Layout> {
 
   @override
   Widget build(BuildContext context) {
+    var local = AppLocalizations.of(context)!;
     var provider = Provider.of<SettingProvider>(context);
     return Scaffold(
       floatingActionButton: FloatingActionButton(
@@ -50,20 +52,20 @@ class _LayoutState extends State<Layout> {
           items: [
             BottomNavigationBarItem(
               icon: ImageIcon(AssetImage('assets/icons/un_Home.png')),
-              label: 'Home',
+              label: local.home,
               activeIcon: ImageIcon(AssetImage('assets/icons/Home.png')),
             ),
             BottomNavigationBarItem(
                 icon: ImageIcon(AssetImage('assets/icons/un_Map.png')),
-                label: 'Home',
+                label: local.map,
                 activeIcon: ImageIcon(AssetImage('assets/icons/Map.png'))),
             BottomNavigationBarItem(
                 icon: ImageIcon(AssetImage('assets/icons/un_love.png')),
-                label: 'Home',
+                label: local.favourite,
                 activeIcon: ImageIcon(AssetImage('assets/icons/love.png'))),
             BottomNavigationBarItem(
                 icon: ImageIcon(AssetImage('assets/icons/un_user.png')),
-                label: 'Home',
+                label: local.profile,
                 activeIcon: ImageIcon(AssetImage('assets/icons/user.png'))),
           ]),
       body: provider.layout[selectedIndex],

@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:again_evently/modules/layout/widgets/event_category.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../layout/favourite/favourite_Screen.dart';
 import '../layout/home/home_screen.dart';
 import '../layout/map/map_screen.dart';
@@ -9,6 +10,8 @@ import '../layout/profile/profile_screen.dart';
 class SettingProvider extends ChangeNotifier {
   DateTime? _selectedDate;
   TimeOfDay? _timeOfDay;
+  String currantLanguage = 'en';
+
 
   List<String> _language = [
     'Arabic',
@@ -48,6 +51,10 @@ class SettingProvider extends ChangeNotifier {
 
   List<Widget> get layout => _layout;
 
+  bool isEnglish() {
+    return currantLanguage == 'en';
+  }
+
   selectedEvenDate(BuildContext context) async {
     DateTime? newDate = await showDatePicker(
       context: context,
@@ -71,5 +78,13 @@ class SettingProvider extends ChangeNotifier {
       notifyListeners();
     }
     log('$_timeOfDay');
+  }
+
+  setLanguage(String newLanguage) async {
+    if (newLanguage == currantLanguage) return;
+    currantLanguage = newLanguage;
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setString('lang', newLanguage);
+    notifyListeners();
   }
 }

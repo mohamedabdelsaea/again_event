@@ -36,8 +36,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               child: Padding(
-                padding:
-                const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 20.0, vertical: 15.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -68,12 +68,21 @@ class _HomeScreenState extends State<HomeScreen> {
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(12),
                             ),
-                            child: Text(
-                              'EN',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w700,
-                                color: AppColor.primary,
+                            child: GestureDetector(
+                              onTap: () {
+                                if (provider.isEnglish()) {
+                                  return provider.setLanguage('ar');
+                                } else {
+                                  return provider.setLanguage('en');
+                                }
+                              },
+                              child: Text(
+                                'EN',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w700,
+                                  color: AppColor.primary,
+                                ),
                               ),
                             ),
                           ),
@@ -123,8 +132,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           return CustomCreateTap(
                             text: category.name,
                             isColor:
-                            provider.eventCategoryList.indexOf(category) ==
-                                selectedIndex,
+                                provider.eventCategoryList.indexOf(category) ==
+                                    selectedIndex,
                           );
                         }).toList(),
                       ),

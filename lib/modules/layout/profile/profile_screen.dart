@@ -1,3 +1,4 @@
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'dart:developer';
 import 'package:again_evently/core/routes/page_route_name.dart';
 import 'package:again_evently/modules/provider/setting_provider.dart';
@@ -12,6 +13,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    var local = AppLocalizations.of(context)!;
     var provider =Provider.of<SettingProvider>(context);
     return Scaffold(
       body: Column(
@@ -58,7 +60,7 @@ class ProfileScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
             child: Text(
-              'Language',
+              local.language,
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w700,
@@ -70,7 +72,7 @@ class ProfileScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: CustomDropdown(
               items: provider.language,
-              hintText: 'Language',
+              hintText: local.language,
               decoration: CustomDropdownDecoration(
                   closedSuffixIcon: Icon(
                     Icons.arrow_drop_down,
@@ -84,7 +86,7 @@ class ProfileScreen extends StatelessWidget {
                   closedBorder: Border.all(color: AppColor.primary),
                   hintStyle: TextStyle(color: AppColor.primary, fontSize: 16)),
               onChanged: (value) {
-                log('language');
+                log(local.language);
               },
             ),
           ),
@@ -92,7 +94,7 @@ class ProfileScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
             child: Text(
-              'Theme',
+              local.theme,
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w700,
@@ -104,7 +106,7 @@ class ProfileScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: CustomDropdown(
               items: provider.theme,
-              hintText: 'Theme',
+              hintText: local.theme,
               decoration: CustomDropdownDecoration(
                   closedSuffixIcon: Icon(
                     Icons.arrow_drop_down,
@@ -118,7 +120,7 @@ class ProfileScreen extends StatelessWidget {
                   closedBorder: Border.all(color: AppColor.primary),
                   hintStyle: TextStyle(color: AppColor.primary, fontSize: 16)),
               onChanged: (value) {
-                log('theme');
+                log(local.theme);
               },
             ),
           ),
@@ -145,7 +147,7 @@ class ProfileScreen extends StatelessWidget {
                       child: Icon(Icons.logout, color: AppColor.white),
                     ),
                     Text(
-                      'Logout',
+                      local.logout,
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 22,

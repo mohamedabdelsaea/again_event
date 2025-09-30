@@ -7,7 +7,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,14 +17,20 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(ChangeNotifierProvider(
-      create: (context) => SettingProvider(), child: const MyApp()));
+    create: (context) => SettingProvider(),
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
+
+  late SettingProvider provider;
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<SettingProvider>(context);
+    initSharedPref();
     return MaterialApp(
       theme: ThemeData(scaffoldBackgroundColor: AppColor.white),
       debugShowCheckedModeBanner: false,
@@ -31,6 +39,15 @@ class MyApp extends StatelessWidget {
       builder: EasyLoading.init(
         builder: BotToastInit(),
       ),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      locale: Locale(provider.currantLanguage),
     );
+  }
+
+  initSharedPref() async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    String? lang = pref.getString('lang');
+    provider.setLanguage(lang ?? 'ar');
   }
 }

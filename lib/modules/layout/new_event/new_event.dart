@@ -1,3 +1,4 @@
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:again_evently/core/routes/page_route_name.dart';
 import 'package:again_evently/core/services/snack_bar_service.dart';
 import 'package:again_evently/core/theme/app_color.dart';
@@ -26,6 +27,7 @@ class _NewEventState extends State<NewEvent> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     var provider = Provider.of<SettingProvider>(context);
+    var local = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: AppBar(
@@ -251,7 +253,7 @@ class _NewEventState extends State<NewEvent> {
                       borderRadius: BorderRadius.circular(14),
                     ),
                     child: Text(
-                      'Add Event',
+                      local.addEvent,
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 22,
