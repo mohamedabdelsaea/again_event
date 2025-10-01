@@ -14,7 +14,7 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     var local = AppLocalizations.of(context)!;
-    var provider =Provider.of<SettingProvider>(context);
+    var provider = Provider.of<SettingProvider>(context);
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,23 +70,23 @@ class ProfileScreen extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: CustomDropdown(
+            child: CustomDropdown<String>(
               items: provider.language,
+              initialItem: provider.currantLanguage,
               hintText: local.language,
               decoration: CustomDropdownDecoration(
-                  closedSuffixIcon: Icon(
-                    Icons.arrow_drop_down,
-                    color: AppColor.primary,
-                  ),
-                  expandedSuffixIcon: Icon(
-                    Icons.arrow_drop_down,
-                    color: AppColor.primary,
-                  ),
-                  closedBorderRadius: BorderRadius.circular(12),
-                  closedBorder: Border.all(color: AppColor.primary),
-                  hintStyle: TextStyle(color: AppColor.primary, fontSize: 16)),
+                closedSuffixIcon:
+                    Icon(Icons.arrow_drop_down, color: AppColor.primary),
+                expandedSuffixIcon:
+                    Icon(Icons.arrow_drop_down, color: AppColor.primary),
+                closedBorderRadius: BorderRadius.circular(12),
+                closedBorder: Border.all(color: AppColor.primary),
+                hintStyle: TextStyle(color: AppColor.primary, fontSize: 16),
+              ),
               onChanged: (value) {
-                log(local.language);
+                if (value != null) {
+                  provider.setLanguage(value);
+                }
               },
             ),
           ),

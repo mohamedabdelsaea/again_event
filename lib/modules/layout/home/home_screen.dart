@@ -77,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 }
                               },
                               child: Text(
-                                'EN',
+                                provider.isEnglish() ? 'EN' : 'AR',
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w700,

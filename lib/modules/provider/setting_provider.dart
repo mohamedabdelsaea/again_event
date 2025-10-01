@@ -12,10 +12,9 @@ class SettingProvider extends ChangeNotifier {
   TimeOfDay? _timeOfDay;
   String currantLanguage = 'en';
 
-
   List<String> _language = [
-    'Arabic',
-    'English',
+    'ar',
+    'en',
   ];
   List<String> _theme = [
     'Light',
@@ -81,10 +80,18 @@ class SettingProvider extends ChangeNotifier {
   }
 
   setLanguage(String newLanguage) async {
-    if (newLanguage == currantLanguage) return;
+    if (newLanguage == currantLanguage) {
+      return;
+    }
     currantLanguage = newLanguage;
     final SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setString('lang', newLanguage);
+    notifyListeners();
+  }
+
+  resetDateAndTime() {
+    _selectedDate = null;
+    _timeOfDay = null;
     notifyListeners();
   }
 }

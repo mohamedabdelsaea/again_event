@@ -10,7 +10,6 @@ class MapScreen extends StatelessWidget {
       body: Column(
         children: [
           AppBar(
-            backgroundColor: AppColor.white,
             centerTitle: true,
             title: Text(
               'Soon Map',
