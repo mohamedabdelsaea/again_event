@@ -31,7 +31,6 @@ class _NewEventState extends State<NewEvent> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColor.white,
         centerTitle: true,
         title: Text(
           'Create Event',
@@ -162,7 +161,7 @@ class _NewEventState extends State<NewEvent> {
                     Text(
                       'Event Date',
                       style: TextStyle(
-                        color: AppColor.black,
+                        color: AppColor.primary,
                         fontWeight: FontWeight.w700,
                         fontSize: 18,
                       ),
@@ -194,7 +193,7 @@ class _NewEventState extends State<NewEvent> {
                     Text(
                       'Event Time',
                       style: TextStyle(
-                        color: AppColor.black,
+                        color: AppColor.primary,
                         fontWeight: FontWeight.w700,
                         fontSize: 18,
                       ),

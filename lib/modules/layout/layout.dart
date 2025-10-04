@@ -33,7 +33,6 @@ class _LayoutState extends State<Layout> {
           ),
           child: Icon(
             Icons.add,
-            color: AppColor.white,
           ),
         ),
       ),
@@ -45,7 +44,6 @@ class _LayoutState extends State<Layout> {
               selectedIndex = index;
             });
           },
-          fixedColor: AppColor.white,
           showUnselectedLabels: false,
           backgroundColor: AppColor.primary,
           type: BottomNavigationBarType.fixed,

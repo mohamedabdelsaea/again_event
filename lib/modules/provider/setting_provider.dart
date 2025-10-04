@@ -10,7 +10,8 @@ import '../layout/profile/profile_screen.dart';
 class SettingProvider extends ChangeNotifier {
   DateTime? _selectedDate;
   TimeOfDay? _timeOfDay;
-  String currantLanguage = 'en';
+  String currentLanguage = 'en';
+  ThemeMode currentTheme = ThemeMode.light;
 
   List<String> _language = [
     'ar',
@@ -51,7 +52,11 @@ class SettingProvider extends ChangeNotifier {
   List<Widget> get layout => _layout;
 
   bool isEnglish() {
-    return currantLanguage == 'en';
+    return currentLanguage == 'en';
+  }
+
+  bool isDark() {
+    return currentTheme == ThemeMode.dark;
   }
 
   selectedEvenDate(BuildContext context) async {
@@ -80,12 +85,23 @@ class SettingProvider extends ChangeNotifier {
   }
 
   setLanguage(String newLanguage) async {
-    if (newLanguage == currantLanguage) {
+    if (newLanguage == currentLanguage) {
       return;
     }
-    currantLanguage = newLanguage;
+    currentLanguage = newLanguage;
     final SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setString('lang', newLanguage);
+    notifyListeners();
+  }
+
+  setCurrentTheme(ThemeMode newTheme) async {
+    if (currentTheme == newTheme) {
+      return;
+    }
+    currentTheme = newTheme;
+
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setBool('theme', newTheme == ThemeMode.dark);
     notifyListeners();
   }
 

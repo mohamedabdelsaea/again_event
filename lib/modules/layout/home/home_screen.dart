@@ -53,7 +53,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         const Spacer(),
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            if (provider.isDark()) {
+                              provider.setCurrentTheme(ThemeMode.light);
+                            } else {
+                              provider.setCurrentTheme(ThemeMode.dark);
+                            }
+                          },
                           icon: const Icon(
                             Icons.wb_sunny_outlined,
                             color: Colors.white,

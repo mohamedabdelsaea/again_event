@@ -41,16 +41,23 @@ class MyApp extends StatelessWidget {
       ),
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      themeMode: ThemeMode.light,
+      themeMode: provider.currentTheme,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      locale: Locale(provider.currantLanguage),
+      locale: Locale(provider.currentLanguage),
     );
   }
 
   initSharedPref() async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
     String? lang = pref.getString('lang');
+    bool? theme = pref.getBool('theme');
     provider.setLanguage(lang ?? 'ar');
+
+    if (theme == 'dark') {
+      provider.setCurrentTheme(ThemeMode.dark);
+    } else if (theme == 'light') {
+      provider.setCurrentTheme(ThemeMode.light);
+    }
   }
 }

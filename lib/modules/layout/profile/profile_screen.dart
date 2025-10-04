@@ -72,7 +72,7 @@ class ProfileScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: CustomDropdown<String>(
               items: provider.language,
-              initialItem: provider.currantLanguage,
+              initialItem: provider.currentLanguage,
               hintText: local.language,
               decoration: CustomDropdownDecoration(
                 closedSuffixIcon:
@@ -120,7 +120,11 @@ class ProfileScreen extends StatelessWidget {
                   closedBorder: Border.all(color: AppColor.primary),
                   hintStyle: TextStyle(color: AppColor.primary, fontSize: 16)),
               onChanged: (value) {
-                log(local.theme);
+                if (value == 'Light') {
+                  provider.setCurrentTheme(ThemeMode.light);
+                } else if (value == 'Dark'){
+                  provider.setCurrentTheme(ThemeMode.dark);
+                }
               },
             ),
           ),
