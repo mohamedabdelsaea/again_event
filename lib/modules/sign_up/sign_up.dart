@@ -17,6 +17,7 @@ class _SignUpState extends State<SignUp> {
   bool _isPassword = false;
   final _formKey = GlobalKey<FormState>();
   var _nameController = TextEditingController();
+  var _phoneController = TextEditingController();
   var _emailController = TextEditingController();
   var _passwordController = TextEditingController();
 
@@ -83,7 +84,40 @@ class _SignUpState extends State<SignUp> {
                 ),
               ),
             ),
-            // Email
+            const SizedBox(height: 15),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 1.0),
+              child: TextFormField(
+                validator: (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return 'plz enter Phone';
+                  }
+                  return null;
+                },
+                controller: _phoneController,
+                decoration: InputDecoration(
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: AppColor.primary),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  hintText: 'Phone',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: AppColor.primary),
+                  ),
+                  prefixIcon: Padding(
+                    padding: const EdgeInsets.only(left: 20.0, right: 10),
+                    child: ImageIcon(
+                      AssetImage('assets/icons/free_phone.png'),
+                    ),
+                  ),
+
+                ),
+                keyboardType: TextInputType.number,
+                maxLength: 11,
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: TextFormField(
@@ -116,7 +150,6 @@ class _SignUpState extends State<SignUp> {
                 ),
               ),
             ),
-            // Password
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: TextFormField(
@@ -164,7 +197,6 @@ class _SignUpState extends State<SignUp> {
                 ),
               ),
             ),
-            // Re Password
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: TextFormField(
