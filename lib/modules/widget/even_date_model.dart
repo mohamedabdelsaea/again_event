@@ -9,6 +9,7 @@ class EvenDateModel {
   final DateTime dateTime;
   final TimeOfDay timeOfDay;
   bool isFavourite;
+  String? userId ;
 
   EvenDateModel({
     required this.Id,
@@ -18,6 +19,7 @@ class EvenDateModel {
     required this.dateTime,
     required this.timeOfDay,
     this.isFavourite = false,
+    this.userId,
   });
 
   factory EvenDateModel.fromFireStore(Map<String, dynamic> json) {
@@ -29,6 +31,7 @@ class EvenDateModel {
       dateTime: (json['dateTime'] as Timestamp).toDate(),
       timeOfDay: _parseTimeOfDay(json['timeOfDay']),
       isFavourite: json['isFavourite'] ?? false,
+      userId: json['userId'],
     );
   }
 
@@ -41,6 +44,7 @@ class EvenDateModel {
       'dateTime': Timestamp.fromDate(dateTime),
       'timeOfDay': '${timeOfDay.hour}:${timeOfDay.minute}',
       'isFavourite': isFavourite,
+      'userId' : userId ,
     };
   }
 

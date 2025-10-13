@@ -1,9 +1,9 @@
 import 'package:again_evently/core/theme/app_color.dart';
 import 'package:again_evently/modules/layout/home/widgets/home_category.dart';
 import 'package:again_evently/modules/provider/setting_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../widgets/custom_create_tap.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -15,6 +15,28 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   var selectedIndex = 0;
+  String? userName;
+
+  @override
+  void initState() {
+    super.initState();
+    getCurrentUser();
+  }
+
+  void getCurrentUser() {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null && user.email != null) {
+      final email = user.email!;
+      final nameBeforeAt = email.split('@').first;
+      setState(() {
+        userName = nameBeforeAt;
+      });
+    } else {
+      setState(() {
+        userName = "User";
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,9 +118,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                     const SizedBox(height: 5),
-                    const Text(
-                      'Mohamed Abdo',
-                      style: TextStyle(
+                    Text(
+                      userName ?? 'Loading...',
+                      style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
                         color: Colors.white,

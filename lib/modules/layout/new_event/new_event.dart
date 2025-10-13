@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:again_evently/core/routes/page_route_name.dart';
 import 'package:again_evently/core/services/snack_bar_service.dart';
@@ -222,6 +223,7 @@ class _NewEventState extends State<NewEvent> {
                     if (_formKey.currentState!.validate() &&
                         provider.selectedDate != null &&
                         provider.timeOfDay != null) {
+                      final user = FirebaseAuth.instance.currentUser ;
                       EvenDateModel data = EvenDateModel(
                         Id: provider.eventCategoryList[selectedIndex].name,
                         title: _titleController.text,
@@ -229,6 +231,7 @@ class _NewEventState extends State<NewEvent> {
                         category: _categoryController.text,
                         dateTime: provider.selectedDate!,
                         timeOfDay: provider.timeOfDay!,
+                        userId: user?.uid ,
                       );
                       CreateEventFireStore.createNewEvent(data).then(
                         (value) {

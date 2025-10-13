@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'dart:developer';
 import 'package:again_evently/core/routes/page_route_name.dart';
@@ -7,8 +8,26 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../core/theme/app_color.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  String? userName ;
+  @override
+  void initState() {
+    super.initState();
+    getCurrentUser();
+  }
+  getCurrentUser(){
+    final user = FirebaseAuth.instance.currentUser ;
+    setState(() {
+      userName = user?.email ?? 'User' ;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,41 +39,20 @@ class ProfileScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            height: size.height * 0.18,
+            height: size.height * 0.14,
             width: double.infinity,
+            alignment: Alignment.center,
             decoration: BoxDecoration(
                 color: AppColor.primary,
                 borderRadius:
                     BorderRadius.only(bottomLeft: Radius.circular(26))),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 20.0, vertical: 20),
-                  child: Text(
-                    'Mohamed Abdo',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                      color: AppColor.white,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20.0,
-                  ),
-                  child: Text(
-                    'Mohamed.Abdo@gmail.com',
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                      color: AppColor.white,
-                    ),
-                  ),
-                ),
-              ],
+            child: Text(
+              userName ?? 'User',
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+                color: AppColor.white,
+              ),
             ),
           ),
           Padding(

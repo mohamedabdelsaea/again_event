@@ -1,50 +1,67 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart'; // ✅ عشان نجيب UID المستخدم
 import '../../../modules/widget/even_date_model.dart';
 
 class CreateEventFireStore {
-  // إضافة event جديد
-  static Future<bool> createNewEvent(EvenDateModel data) async {
-    try {
-      var collectionRef = getCollectionReference();
-      var docRef = collectionRef.doc();
-      data.Id = docRef.id;
-      await docRef.set(data);
-      return true;
-    } catch (error) {
-      return false;
-    }
-  }
-
-  // المرجع الأساسي
+  // ✅ المرجع الأساسي
   static CollectionReference<EvenDateModel> getCollectionReference() {
     return FirebaseFirestore.instance
         .collection('events')
         .withConverter<EvenDateModel>(
-          fromFirestore: (snapshot, _) =>
-              EvenDateModel.fromFireStore(snapshot.data()!),
-          toFirestore: (model, _) => model.toJson(),
-        );
+      fromFirestore: (snapshot, _) =>
+          EvenDateModel.fromFireStore(snapshot.data()!),
+      toFirestore: (model, _) => model.toJson(),
+    );
   }
 
-  // جلب كل البيانات مرة واحدة
+  // ✅ إضافة event جديد وربطه بالمستخدم الحالي
+  static Future<bool> createNewEvent(EvenDateModel data) async {
+    try {
+      final user = FirebaseAuth.instance.currentUser; // 🔥 المستخدم الحالي
+      if (user == null) return false;
+
+      var collectionRef = getCollectionReference();
+      var docRef = collectionRef.doc();
+
+      data.Id = docRef.id;
+      data.userId = user.uid; // ✅ نربط الحدث بالمستخدم الحالي
+
+      await docRef.set(data);
+      return true;
+    } catch (error) {
+      print("Error creating event: $error");
+      return false;
+    }
+  }
+
+  // ✅ جلب كل بيانات المستخدم الحالي فقط
   static Future<List<EvenDateModel>> getDataFromFirestore() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) return [];
+
     var collectionRef = getCollectionReference();
 
-    QuerySnapshot<EvenDateModel> data = await collectionRef.get();
+    QuerySnapshot<EvenDateModel> data = await collectionRef
+        .where('userId', isEqualTo: user.uid) // 🔥 فلترة بالأحداث الخاصة بالمستخدم
+        .get();
 
-    List<EvenDateModel> eventDataList =
-        data.docs.map((element) => element.data()).toList();
-
-    return eventDataList;
+    return data.docs.map((element) => element.data()).toList();
   }
 
-  // Stream للحصول على أي تحديث مباشر
+  // ✅ Stream للأحداث الخاصة بالمستخدم الحالي فقط
   static Stream<List<EvenDateModel>> getEventsStream() {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      // لو المستخدم مش داخل، نرجع Stream فاضي
+      return const Stream.empty();
+    }
+
     var collectionRef = getCollectionReference();
 
-    return collectionRef.snapshots().map((snapshot) {
-      return snapshot.docs.map((doc) => doc.data()).toList();
-    });
+    return collectionRef
+        .where('userId', isEqualTo: user.uid) // 🔥 فلترة حسب المستخدم
+        .snapshots()
+        .map((snapshot) => snapshot.docs.map((doc) => doc.data()).toList());
   }
 
   // ✅ تحديث حالة isFavourite
