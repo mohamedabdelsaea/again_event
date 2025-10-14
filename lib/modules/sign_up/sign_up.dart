@@ -94,6 +94,10 @@ class _SignUpState extends State<SignUp> {
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
                       return 'plz enter Phone';
+                    } else if (value.trim().length < 11) {
+                      return 'Please enter full phone number';
+                    } else if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
+                      return 'Phone number must contain digits only';
                     }
                     return null;
                   },
@@ -104,6 +108,11 @@ class _SignUpState extends State<SignUp> {
                       borderRadius: BorderRadius.circular(12),
                     ),
                     hintText: 'Phone',
+                    // hintStyle: TextStyle(
+                    //   fontSize: 18,
+                    //   fontWeight: FontWeight.w500,
+                    //   color: AppColor.primary
+                    // ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide(color: AppColor.primary),
@@ -250,9 +259,10 @@ class _SignUpState extends State<SignUp> {
                   if (_formKey.currentState!.validate()) {
                     log('successfully');
                     AuthFirebase.createAccount(
-                            email: _emailController.text,
-                            password: _passwordController.text)
-                        .then(
+                      email: _emailController.text,
+                      password: _passwordController.text,
+                      phone: _phoneController.text,
+                    ).then(
                       (value) {
                         EasyLoading.dismiss();
                         if (value == true) {

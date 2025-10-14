@@ -6,28 +6,28 @@ import '../../services/snack_bar_service.dart';
 
 class AuthFirebase {
   static final _auth = FirebaseAuth.instance;
-  static final _firestore = FirebaseFirestore.instance;
+  static final _fireStore = FirebaseFirestore.instance;
 
-  // إنشاء حساب جديد
   static Future<bool> createAccount({
     required String email,
     required String password,
+    required String phone,
   }) async {
     EasyLoading.show();
     try {
-      // إنشاء الحساب في Firebase Auth
-      UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
+      UserCredential userCredential =
+      await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
 
       User? user = userCredential.user;
 
-      // حفظ بيانات المستخدم في Firestore
       if (user != null) {
-        await _firestore.collection('users').doc(user.uid).set({
+        await _fireStore.collection('users').doc(user.uid).set({
           'uid': user.uid,
           'email': user.email,
+          'phone': phone,
           'createdAt': FieldValue.serverTimestamp(),
         });
       }
@@ -59,7 +59,6 @@ class AuthFirebase {
     }
   }
 
-  // تسجيل الدخول
   static Future<bool> login({
     required String email,
     required String password,
@@ -85,4 +84,29 @@ class AuthFirebase {
       return false;
     }
   }
+
+  static Future<void> sendOtpToPhone({
+    required String phone,
+    required Function(String verificationId) onCodeSent,
+  }) async {
+    try {
+      await _auth.verifyPhoneNumber(
+        phoneNumber: '+20$phone', // غير الكود حسب الدولة
+        verificationCompleted: (PhoneAuthCredential credential) async {
+          await _auth.signInWithCredential(credential);
+        },
+        verificationFailed: (FirebaseAuthException e) {
+          SnackBarService.showErrorMessage(e.message ?? 'Verification failed');
+        },
+        codeSent: (String verificationId, int? resendToken) {
+          // لما الكود يتبعت بنجاح استدعي الكول باك
+          onCodeSent(verificationId);
+        },
+        codeAutoRetrievalTimeout: (String verificationId) {},
+      );
+    } catch (e) {
+      SnackBarService.showErrorMessage('Failed to send code');
+    }
+  }
+
 }

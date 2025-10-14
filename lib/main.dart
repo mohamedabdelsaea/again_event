@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
     initSharedPref();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: PageRouteName.layout,
+      initialRoute: PageRouteName.signIn,
       onGenerateRoute: AppRoutes.onGenerateRoute,
       builder: EasyLoading.init(
         builder: BotToastInit(),
