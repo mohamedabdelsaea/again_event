@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:again_evently/core/routes/page_route_name.dart';
 import 'package:again_evently/core/services/snack_bar_service.dart';
 import 'package:again_evently/core/theme/app_color.dart';
@@ -10,6 +9,8 @@ import 'package:again_evently/modules/widget/even_date_model.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+
+import '../../../l10n/app_localizations.dart';
 
 class NewEvent extends StatefulWidget {
   const NewEvent({super.key});

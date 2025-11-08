@@ -3,7 +3,7 @@ import 'package:again_evently/core/theme/app_color.dart';
 import 'package:again_evently/modules/provider/setting_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../l10n/app_localizations.dart';
 
 class Layout extends StatefulWidget {
   const Layout({super.key});
@@ -56,7 +56,7 @@ class _LayoutState extends State<Layout> {
             BottomNavigationBarItem(
                 icon: ImageIcon(AssetImage('assets/icons/un_Map.png')),
                 label: local.map,
-                activeIcon: ImageIcon(AssetImage('assets/icons/Map.png'))),
+                activeIcon: ImageIcon(AssetImage('assets/icons/un_Map.png'))),
             BottomNavigationBarItem(
                 icon: ImageIcon(AssetImage('assets/icons/un_love.png')),
                 label: local.favourite,
@@ -66,7 +66,8 @@ class _LayoutState extends State<Layout> {
                 label: local.profile,
                 activeIcon: ImageIcon(AssetImage('assets/icons/user.png'))),
           ]),
-      body: provider.layout[selectedIndex],
+      body: SafeArea(
+          child: provider.layout[selectedIndex]),
     );
   }
 }
