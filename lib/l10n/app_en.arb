@@ -1,0 +1,10 @@
+{
+  "home": "home",
+  "map": "map",
+  "favourite": "favourite",
+  "profile": "profile",
+  "addEvent": "addEvent",
+  "language": "language",
+  "theme": "theme",
+  "logout": "logout"
+}

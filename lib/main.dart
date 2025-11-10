@@ -1,22 +1,62 @@
 import 'package:again_evently/core/routes/app_routes.dart';
 import 'package:again_evently/core/routes/page_route_name.dart';
-import 'package:again_evently/modules/splash/splashScreen.dart';
+import 'package:again_evently/core/theme/app_theme.dart';
+import 'package:again_evently/modules/provider/setting_provider.dart';
+import 'package:bot_toast/bot_toast.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'firebase_options.dart';
+import 'l10n/app_localizations.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(ChangeNotifierProvider(
+    create: (context) => SettingProvider(),
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
 
-  // This widget is the root of your application.
+  late SettingProvider provider;
+
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<SettingProvider>(context);
+    initSharedPref();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: PageRouteName.signIn,
+      initialRoute: PageRouteName.initial,
       onGenerateRoute: AppRoutes.onGenerateRoute,
+      builder: EasyLoading.init(
+        builder: BotToastInit(),
+      ),
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: provider.currentTheme,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      locale: Locale(provider.currentLanguage),
     );
+  }
+
+  initSharedPref() async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    String? lang = pref.getString('lang');
+    bool? theme = pref.getBool('theme');
+    provider.setLanguage(lang ?? 'ar');
+
+    if (theme == 'dark') {
+      provider.setCurrentTheme(ThemeMode.dark);
+    } else if (theme == 'light') {
+      provider.setCurrentTheme(ThemeMode.light);
+    }
   }
 }

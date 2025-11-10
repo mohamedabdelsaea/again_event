@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:again_evently/core/routes/page_route_name.dart';
-import 'package:again_evently/core/theme/app_color.dart';
 import 'package:flutter/material.dart';
 
 class Splashscreen extends StatefulWidget {
@@ -15,7 +14,7 @@ class _SplashscreenState extends State<Splashscreen> {
   void initState() {
     super.initState();
     Timer(
-      Duration(seconds: 5),
+      Duration(seconds: 3),
       () {
         Navigator.pushNamedAndRemoveUntil(
           context,
@@ -30,7 +29,6 @@ class _SplashscreenState extends State<Splashscreen> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: AppColor.white,
       body: Center(
         child: Image.asset(
           'assets/images/Logo.png',
