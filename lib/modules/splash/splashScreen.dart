@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:again_evently/core/routes/page_route_name.dart';
+import 'package:again_evently/main.dart';
 import 'package:flutter/material.dart';
 
 class Splashscreen extends StatefulWidget {
@@ -16,8 +17,7 @@ class _SplashscreenState extends State<Splashscreen> {
     Timer(
       Duration(seconds: 3),
       () {
-        Navigator.pushNamedAndRemoveUntil(
-          context,
+        navigatorKey.currentState!.pushNamedAndRemoveUntil(
           PageRouteName.signIn,
           (route) => false,
         );
