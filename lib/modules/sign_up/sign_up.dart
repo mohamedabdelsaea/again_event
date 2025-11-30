@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:again_evently/core/routes/page_route_name.dart';
 import 'package:again_evently/core/theme/app_color.dart';
 import 'package:again_evently/core/widgets/validation.dart';
+import 'package:again_evently/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import '../../core/utils/fire_base/auth_firebase.dart';
@@ -266,8 +267,7 @@ class _SignUpState extends State<SignUp> {
                       (value) {
                         EasyLoading.dismiss();
                         if (value == true) {
-                          Navigator.pushNamedAndRemoveUntil(
-                            context,
+                          navigatorKey.currentState!.pushNamedAndRemoveUntil(
                             PageRouteName.signIn,
                             (route) => false,
                           );

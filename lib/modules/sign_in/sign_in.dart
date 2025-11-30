@@ -1,6 +1,7 @@
 import 'package:again_evently/core/routes/page_route_name.dart';
 import 'package:again_evently/core/theme/app_color.dart';
 import 'package:again_evently/core/utils/fire_base/auth_firebase.dart';
+import 'package:again_evently/main.dart';
 import 'package:flutter/material.dart';
 
 class SignIn extends StatefulWidget {
@@ -173,7 +174,8 @@ class _SignInState extends State<SignIn> {
                   SizedBox(width: size.width * 0.02),
                   TextButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, PageRouteName.signUp);
+                      navigatorKey.currentState!
+                          .pushNamed(PageRouteName.signUp);
                     },
                     child: Text(
                       'Create Account',

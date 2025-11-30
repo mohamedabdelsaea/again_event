@@ -49,22 +49,22 @@ class _LayoutState extends State<Layout> {
           type: BottomNavigationBarType.fixed,
           items: [
             BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage('assets/icons/un_Home.png')),
+              icon: const ImageIcon(AssetImage('assets/icons/un_Home.png')),
               label: local.home,
-              activeIcon: ImageIcon(AssetImage('assets/icons/Home.png')),
+              activeIcon: const ImageIcon(AssetImage('assets/icons/Home.png')),
             ),
             BottomNavigationBarItem(
-                icon: ImageIcon(AssetImage('assets/icons/un_Map.png')),
+                icon: const ImageIcon(AssetImage('assets/icons/un_Map.png')),
                 label: local.map,
-                activeIcon: ImageIcon(AssetImage('assets/icons/un_Map.png'))),
+                activeIcon: const ImageIcon(AssetImage('assets/icons/un_Map.png'))),
             BottomNavigationBarItem(
                 icon: ImageIcon(AssetImage('assets/icons/un_love.png')),
                 label: local.favourite,
-                activeIcon: ImageIcon(AssetImage('assets/icons/love.png'))),
+                activeIcon: const ImageIcon(AssetImage('assets/icons/love.png'))),
             BottomNavigationBarItem(
-                icon: ImageIcon(AssetImage('assets/icons/un_user.png')),
+                icon: const ImageIcon(AssetImage('assets/icons/un_user.png')),
                 label: local.profile,
-                activeIcon: ImageIcon(AssetImage('assets/icons/user.png'))),
+                activeIcon: const ImageIcon(AssetImage('assets/icons/user.png'))),
           ]),
       body: SafeArea(
           child: provider.layout[selectedIndex]),

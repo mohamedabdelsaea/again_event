@@ -1,5 +1,5 @@
+import 'package:again_evently/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'dart:developer';
 import 'package:again_evently/core/routes/page_route_name.dart';
 import 'package:again_evently/modules/provider/setting_provider.dart';
 import 'package:animated_custom_dropdown/custom_dropdown.dart';
@@ -16,16 +16,18 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  String? userName ;
+  String? userName;
+
   @override
   void initState() {
     super.initState();
     getCurrentUser();
   }
-  getCurrentUser(){
-    final user = FirebaseAuth.instance.currentUser ;
+
+  getCurrentUser() {
+    final user = FirebaseAuth.instance.currentUser;
     setState(() {
-      userName = user?.email ?? 'User' ;
+      userName = user?.email ?? 'User';
     });
   }
 
@@ -120,7 +122,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               onChanged: (value) {
                 if (value == 'Light') {
                   provider.setCurrentTheme(ThemeMode.light);
-                } else if (value == 'Dark'){
+                } else if (value == 'Dark') {
                   provider.setCurrentTheme(ThemeMode.dark);
                 }
               },
@@ -130,8 +132,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Center(
             child: GestureDetector(
               onTap: () {
-                Navigator.pushNamedAndRemoveUntil(
-                  context,
+                navigatorKey.currentState!.pushNamedAndRemoveUntil(
                   PageRouteName.signIn,
                   (route) => false,
                 );

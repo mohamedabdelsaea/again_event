@@ -20,7 +20,7 @@ class SnackBarService {
               color: Colors.white60,
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
-                color: Color(0xFF46c234),
+                color: const Color(0xFF46c234),
               ),
             ),
             child: msg.length > 80
@@ -29,7 +29,7 @@ class SnackBarService {
                       Container(
                         height: double.infinity,
                         width: 10,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Color(0xFF46c234),
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(12),
@@ -189,7 +189,7 @@ class SnackBarService {
               color: Colors.white60,
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
-                color: Color(0xFFd12e2e),
+                color: const Color(0xFFd12e2e),
               ),
             ),
             child: msg.length > 80

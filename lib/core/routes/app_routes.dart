@@ -11,20 +11,20 @@ class AppRoutes {
   static Route onGenerateRoute(RouteSettings setting) {
     switch (setting.name) {
       case PageRouteName.initial:
-        return MaterialPageRoute(builder: (context) => Splashscreen());
+        return MaterialPageRoute(builder: (context) => const Splashscreen());
       case PageRouteName.layout:
-        return MaterialPageRoute(builder: (context) => Layout());
+        return MaterialPageRoute(builder: (context) => const Layout());
       case PageRouteName.signIn:
-        return MaterialPageRoute(builder: (context) => SignIn());
+        return MaterialPageRoute(builder: (context) => const SignIn());
       case PageRouteName.signUp:
-        return MaterialPageRoute(builder: (context) => SignUp());
+        return MaterialPageRoute(builder: (context) => const SignUp());
       case PageRouteName.forgetPassword:
-        return MaterialPageRoute(builder: (context) => ForgetPassword());
+        return MaterialPageRoute(builder: (context) => const ForgetPassword());
      case PageRouteName.newEvent:
-        return MaterialPageRoute(builder: (context) => NewEvent());
+        return MaterialPageRoute(builder: (context) => const NewEvent());
       default:
         return MaterialPageRoute(
-          builder: (context) => Splashscreen(),
+          builder: (context) => const Splashscreen(),
         );
     }
   }

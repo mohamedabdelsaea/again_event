@@ -1,3 +1,4 @@
+import 'package:again_evently/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:again_evently/core/routes/page_route_name.dart';
 import 'package:again_evently/core/services/snack_bar_service.dart';
@@ -21,7 +22,7 @@ class NewEvent extends StatefulWidget {
 
 class _NewEventState extends State<NewEvent> {
   int selectedIndex = 0;
-  var _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
   final _titleController = TextEditingController();
   final _categoryController = TextEditingController();
 
@@ -237,7 +238,7 @@ class _NewEventState extends State<NewEvent> {
                       CreateEventFireStore.createNewEvent(data).then(
                         (value) {
                           if (value == true) {
-                            Navigator.pushNamed(context, PageRouteName.layout);
+                            navigatorKey.currentState!.pushNamed(PageRouteName.layout);
                             SnackBarService.showSuccessMessage(
                                 'successfully created');
                           } else {

@@ -1,6 +1,7 @@
 import 'package:again_evently/core/routes/page_route_name.dart';
 import 'package:again_evently/core/theme/app_color.dart';
 import 'package:again_evently/core/utils/fire_base/auth_firebase.dart';
+import 'package:again_evently/main.dart';
 import 'package:flutter/material.dart';
 
 class ForgetPassword extends StatelessWidget {
@@ -13,7 +14,7 @@ class ForgetPassword extends StatelessWidget {
     final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
     void onCodeSent(String verificationId) {
-      Navigator.pushNamed(context, PageRouteName.signIn);
+      navigatorKey.currentState!.pushNamed(PageRouteName.signIn);
     }
 
     return Scaffold(
@@ -45,7 +46,7 @@ class ForgetPassword extends StatelessWidget {
             ),
             Padding(
               padding:
-              const EdgeInsets.symmetric(horizontal: 25.0, vertical: 3.0),
+                  const EdgeInsets.symmetric(horizontal: 25.0, vertical: 3.0),
               child: TextFormField(
                 controller: _phoneController,
                 keyboardType: TextInputType.number,

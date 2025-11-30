@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart'; // ✅ عشان نجيب UID المستخدم
 import '../../../modules/widget/even_date_model.dart';
@@ -29,7 +31,7 @@ class CreateEventFireStore {
       await docRef.set(data);
       return true;
     } catch (error) {
-      print("Error creating event: $error");
+      log("Error creating event: $error");
       return false;
     }
   }

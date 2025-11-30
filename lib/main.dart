@@ -11,6 +11,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 import 'l10n/app_localizations.dart';
 
+GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -18,13 +20,18 @@ void main() async {
   );
   runApp(ChangeNotifierProvider(
     create: (context) => SettingProvider(),
-    child: MyApp(),
+    child: const MyApp(),
   ));
 }
 
-class MyApp extends StatelessWidget {
-  MyApp({super.key});
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   late SettingProvider provider;
 
   @override
@@ -35,6 +42,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: PageRouteName.initial,
       onGenerateRoute: AppRoutes.onGenerateRoute,
+      navigatorKey: navigatorKey,
       builder: EasyLoading.init(
         builder: BotToastInit(),
       ),
