@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'core/utils/fire_base/firebase_notification_service.dart';
 import 'firebase_options.dart';
 import 'l10n/app_localizations.dart';
 
@@ -18,6 +19,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await FirebaseNotificationService.init();
   runApp(ChangeNotifierProvider(
     create: (context) => SettingProvider(),
     child: const MyApp(),
