@@ -15,7 +15,7 @@ class CustomCreateTap extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
           color: isColor ? AppColor.primary : AppColor.white,

@@ -13,21 +13,21 @@ class SettingProvider extends ChangeNotifier {
   String currentLanguage = 'en';
   ThemeMode currentTheme = ThemeMode.light;
 
-  List<String> _language = [
+  final List<String> _language = [
     'ar',
     'en',
   ];
-  List<String> _theme = [
+  final List<String> _theme = [
     'Light',
     'Dark',
   ];
-  List<Widget> _layout = [
-    HomeScreen(),
-    MapScreen(),
-    FavouriteScreen(),
-    ProfileScreen(),
+  final List<Widget> _layout = [
+    const HomeScreen(),
+    const MapScreen(),
+    const FavouriteScreen(),
+    const ProfileScreen(),
   ];
-  List<EventCategory> _eventCategoryList = [
+  final List<EventCategory> _eventCategoryList = [
     EventCategory(name: 'Book', img: 'assets/images/Book Club.png'),
     EventCategory(name: 'Eating', img: 'assets/images/Book Club-1.png'),
     EventCategory(name: 'Work Shop', img: 'assets/images/Book Club-2.png'),
@@ -63,7 +63,7 @@ class SettingProvider extends ChangeNotifier {
     DateTime? newDate = await showDatePicker(
       context: context,
       firstDate: DateTime.now(),
-      lastDate: DateTime.now().add(Duration(days: 365)),
+      lastDate: DateTime.now().add(const Duration(days: 365)),
     );
     if (newDate != null) {
       _selectedDate = newDate;

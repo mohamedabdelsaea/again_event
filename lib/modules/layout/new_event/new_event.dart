@@ -58,7 +58,7 @@ class _NewEventState extends State<NewEvent> {
               children: [
                 Container(
                   height: size.height * 0.3,
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(22),
                     image: DecorationImage(
@@ -69,7 +69,7 @@ class _NewEventState extends State<NewEvent> {
                     ),
                   ),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 DefaultTabController(
                   length: provider.eventCategoryList.length,
                   child: TabBar(
@@ -91,7 +91,7 @@ class _NewEventState extends State<NewEvent> {
                     }).toList(),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Text(
                   'Title',
                   style: TextStyle(
@@ -100,7 +100,7 @@ class _NewEventState extends State<NewEvent> {
                     fontSize: 20,
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 TextFormField(
                   controller: _titleController,
                   validator: (value) {
@@ -119,13 +119,13 @@ class _NewEventState extends State<NewEvent> {
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide(color: AppColor.primary),
                     ),
-                    prefixIcon: Padding(
-                      padding: const EdgeInsets.only(left: 20.0, right: 10),
+                    prefixIcon: const Padding(
+                      padding: EdgeInsets.only(left: 20.0, right: 10),
                       child: Icon(Icons.add_comment_outlined),
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Text(
                   'Description',
                   style: TextStyle(
@@ -134,7 +134,7 @@ class _NewEventState extends State<NewEvent> {
                     fontSize: 20,
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 TextFormField(
                   controller: _categoryController,
                   validator: (value) {
@@ -156,11 +156,11 @@ class _NewEventState extends State<NewEvent> {
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Row(
                   children: [
-                    Icon(Icons.calendar_month),
-                    SizedBox(width: 10),
+                    const Icon(Icons.calendar_month),
+                    const SizedBox(width: 10),
                     Text(
                       'Event Date',
                       style: TextStyle(
@@ -169,7 +169,7 @@ class _NewEventState extends State<NewEvent> {
                         fontSize: 18,
                       ),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     TextButton(
                       onPressed: () {
                         provider.selectedEvenDate(context);
@@ -188,11 +188,11 @@ class _NewEventState extends State<NewEvent> {
                     )
                   ],
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Row(
                   children: [
-                    Icon(Icons.access_time),
-                    SizedBox(width: 10),
+                    const Icon(Icons.access_time),
+                    const SizedBox(width: 10),
                     Text(
                       'Event Time',
                       style: TextStyle(
@@ -201,7 +201,7 @@ class _NewEventState extends State<NewEvent> {
                         fontSize: 18,
                       ),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     TextButton(
                       onPressed: () {
                         provider.selectedDateTime(context);
@@ -219,7 +219,7 @@ class _NewEventState extends State<NewEvent> {
                     ),
                   ],
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 GestureDetector(
                   onTap: () {
                     if (_formKey.currentState!.validate() &&
@@ -266,7 +266,7 @@ class _NewEventState extends State<NewEvent> {
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
               ],
             ),
           ),

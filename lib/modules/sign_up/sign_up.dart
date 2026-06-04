@@ -17,10 +17,10 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   bool _isPassword = false;
   final _formKey = GlobalKey<FormState>();
-  var _nameController = TextEditingController();
-  var _phoneController = TextEditingController();
-  var _emailController = TextEditingController();
-  var _passwordController = TextEditingController();
+  final _nameController = TextEditingController();
+  final _phoneController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -78,8 +78,8 @@ class _SignUpState extends State<SignUp> {
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide(color: AppColor.primary),
                     ),
-                    prefixIcon: Padding(
-                      padding: const EdgeInsets.only(left: 20.0, right: 10),
+                    prefixIcon: const Padding(
+                      padding: EdgeInsets.only(left: 20.0, right: 10),
                       child: ImageIcon(
                         AssetImage('assets/images/name_icon.png'),
                       ),
@@ -118,8 +118,8 @@ class _SignUpState extends State<SignUp> {
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide(color: AppColor.primary),
                     ),
-                    prefixIcon: Padding(
-                      padding: const EdgeInsets.only(left: 20.0, right: 10),
+                    prefixIcon: const Padding(
+                      padding: EdgeInsets.only(left: 20.0, right: 10),
                       child: ImageIcon(
                         AssetImage('assets/icons/free_phone.png'),
                       ),
@@ -137,7 +137,7 @@ class _SignUpState extends State<SignUp> {
                       return 'plz enter Email';
                     }
                     if (!Validation.validateEmail(value)) {
-                      return '^[a-zA-Z0-9_%+-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}';
+                      return '^[a-zA-Z0-9_%+-]+@[a-zA-Z0-9-]+.[a-zA-Z]{2,}';
                     }
                     return null;
                   },
@@ -152,8 +152,8 @@ class _SignUpState extends State<SignUp> {
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide(color: AppColor.primary),
                     ),
-                    prefixIcon: Padding(
-                      padding: const EdgeInsets.only(left: 20.0, right: 10),
+                    prefixIcon: const Padding(
+                      padding: EdgeInsets.only(left: 20.0, right: 10),
                       child: ImageIcon(
                         AssetImage('assets/images/email_icon.png'),
                       ),
@@ -169,7 +169,7 @@ class _SignUpState extends State<SignUp> {
                       return 'plz enter password';
                     }
                     if (!Validation.validatePassword(value)) {
-                      return '^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d]{8,}';
+                      return '^(?=.*[A-Z])(?=.*[a-z])(?=.*d)[A-Za-zd]{8,}';
                     }
                     return null;
                   },
@@ -185,8 +185,8 @@ class _SignUpState extends State<SignUp> {
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide(color: AppColor.primary),
                     ),
-                    prefixIcon: Padding(
-                      padding: const EdgeInsets.only(left: 20.0, right: 10),
+                    prefixIcon: const Padding(
+                      padding: EdgeInsets.only(left: 20.0, right: 10),
                       child: ImageIcon(
                         AssetImage('assets/images/password_icon.png'),
                       ),
@@ -231,8 +231,8 @@ class _SignUpState extends State<SignUp> {
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide(color: AppColor.primary),
                     ),
-                    prefixIcon: Padding(
-                      padding: const EdgeInsets.only(left: 20.0, right: 10),
+                    prefixIcon: const Padding(
+                      padding: EdgeInsets.only(left: 20.0, right: 10),
                       child: ImageIcon(
                         AssetImage('assets/images/password_icon.png'),
                       ),

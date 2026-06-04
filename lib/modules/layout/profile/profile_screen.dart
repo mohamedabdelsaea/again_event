@@ -47,7 +47,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             decoration: BoxDecoration(
                 color: AppColor.primary,
                 borderRadius:
-                    BorderRadius.only(bottomLeft: Radius.circular(26))),
+                    const BorderRadius.only(bottomLeft: Radius.circular(26))),
             child: Text(
               userName ?? 'User',
               style: TextStyle(
@@ -90,7 +90,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               },
             ),
           ),
-          SizedBox(height: 50),
+          const SizedBox(height: 50),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
             child: Text(

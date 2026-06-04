@@ -31,7 +31,7 @@ class _LayoutState extends State<Layout> {
             borderRadius: BorderRadius.circular(18),
             color: AppColor.primary,
           ),
-          child: Icon(
+          child: const Icon(
             Icons.add,
           ),
         ),
@@ -58,7 +58,7 @@ class _LayoutState extends State<Layout> {
                 label: local.map,
                 activeIcon: const ImageIcon(AssetImage('assets/icons/un_Map.png'))),
             BottomNavigationBarItem(
-                icon: ImageIcon(AssetImage('assets/icons/un_love.png')),
+                icon: const ImageIcon(AssetImage('assets/icons/un_love.png')),
                 label: local.favourite,
                 activeIcon: const ImageIcon(AssetImage('assets/icons/love.png'))),
             BottomNavigationBarItem(

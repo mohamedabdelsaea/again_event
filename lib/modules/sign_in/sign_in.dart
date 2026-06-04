@@ -14,8 +14,8 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   bool _isPassword = false;
   final _formKey = GlobalKey<FormState>();
-  var _emailcontoller = TextEditingController();
-  var _passwordcontoller = TextEditingController();
+  final  _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class _SignInState extends State<SignIn> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Image.asset(
                 'assets/images/Logo.png',
                 height: size.height * 0.2,
@@ -43,7 +43,7 @@ class _SignInState extends State<SignIn> {
                     }
                     return null;
                   },
-                  controller: _emailcontoller,
+                  controller: _emailController,
                   decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: AppColor.primary),
@@ -54,8 +54,8 @@ class _SignInState extends State<SignIn> {
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide(color: AppColor.primary),
                     ),
-                    prefixIcon: Padding(
-                      padding: const EdgeInsets.only(left: 20.0, right: 10),
+                    prefixIcon: const Padding(
+                      padding: EdgeInsets.only(left: 20.0, right: 10),
                       child: ImageIcon(
                         AssetImage('assets/images/email_icon.png'),
                       ),
@@ -72,7 +72,7 @@ class _SignInState extends State<SignIn> {
                     }
                     return null;
                   },
-                  controller: _passwordcontoller,
+                  controller: _passwordController,
                   obscureText: !_isPassword,
                   decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
@@ -96,8 +96,8 @@ class _SignInState extends State<SignIn> {
                               ? 'assets/icons/eye-slash.png'
                               : 'assets/icons/eye-slash.png',
                         ))),
-                    prefixIcon: Padding(
-                      padding: const EdgeInsets.only(left: 20.0, right: 10),
+                    prefixIcon: const Padding(
+                      padding: EdgeInsets.only(left: 20.0, right: 10),
                       child: ImageIcon(
                         AssetImage('assets/images/password_icon.png'),
                       ),
@@ -105,7 +105,7 @@ class _SignInState extends State<SignIn> {
                   ),
                 ),
               ),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
               Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
@@ -127,8 +127,8 @@ class _SignInState extends State<SignIn> {
                 onTap: () {
                   if (_formKey.currentState!.validate()) {
                     AuthFirebase.login(
-                      email: _emailcontoller.text,
-                      password: _passwordcontoller.text,
+                      email: _emailController.text,
+                      password: _passwordController.text,
                     ).then(
                       (value) {
                         if (value) {
@@ -220,25 +220,8 @@ class _SignInState extends State<SignIn> {
               ),
               SizedBox(height: size.height * 0.02),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: ElevatedButton(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/images/google_logo.png',
-                        height: 25,
-                      ),
-                      SizedBox(width: 5),
-                      Text(
-                        'Login With Google',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColor.white,
                     foregroundColor: AppColor.primary,
@@ -248,6 +231,23 @@ class _SignInState extends State<SignIn> {
                     padding: EdgeInsets.symmetric(vertical: size.height * 0.03),
                   ),
                   onPressed: () {},
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        'assets/images/google_logo.png',
+                        height: 25,
+                      ),
+                      const SizedBox(width: 5),
+                      const Text(
+                        'Login With Google',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],

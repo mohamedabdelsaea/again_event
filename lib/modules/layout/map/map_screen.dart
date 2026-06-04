@@ -1,5 +1,4 @@
 import 'package:again_evently/core/theme/app_color.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MapScreen extends StatelessWidget {
@@ -25,7 +24,7 @@ class MapScreen extends StatelessWidget {
               'Soon',
               style: theme.displayMedium,
             ),
-            SizedBox(width: 20),
+            const SizedBox(width: 20),
             Icon(
               Icons.recycling,
               color: AppColor.primary,

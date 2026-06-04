@@ -105,12 +105,12 @@ class _HomeCategoryState extends State<HomeCategory> {
                         ),
                       ),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     IconButton(
                       onPressed: () {
                         CreateEventFireStore.deleteEvent(currentEvent.Id);
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.delete_outline,
                         color: Colors.red,
                         size: 40,
@@ -142,7 +142,7 @@ class _HomeCategoryState extends State<HomeCategory> {
                     ),
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Align(
                   alignment: Alignment.center,
                   child: Padding(

@@ -15,7 +15,7 @@ class _SplashscreenState extends State<Splashscreen> {
   void initState() {
     super.initState();
     Timer(
-      Duration(seconds: 3),
+      const Duration(seconds: 3),
       () {
         navigatorKey.currentState!.pushNamedAndRemoveUntil(
           PageRouteName.signIn,
