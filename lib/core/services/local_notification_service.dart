@@ -1,4 +1,3 @@
-// lib/services/local_notification_service.dart
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class LocalNotificationService {
@@ -24,7 +23,6 @@ class LocalNotificationService {
       iOS: iosSettings,
     );
 
-    // ✅ تصحيح: إضافة settings كمعامل مسمى
     await _plugin.initialize(settings: settings);
 
     const AndroidNotificationChannel channel = AndroidNotificationChannel(
@@ -56,7 +54,6 @@ class LocalNotificationService {
       iOS: DarwinNotificationDetails(),
     );
 
-    // ✅ تصحيح: استخدام المعاملات المسماة
     await _plugin.show(
       id: id,
       title: title,

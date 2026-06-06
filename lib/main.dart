@@ -63,7 +63,7 @@ class _MyAppState extends State<MyApp> {
     initSharedPref();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Again Evently',
+      title: 'Evently',
       initialRoute: PageRouteName.initial,
       onGenerateRoute: AppRoutes.onGenerateRoute,
       navigatorKey: navigatorKey,

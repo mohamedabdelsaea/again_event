@@ -1,7 +1,9 @@
+import 'dart:developer';
 import 'package:again_evently/core/theme/app_color.dart';
 import 'package:again_evently/modules/layout/home/widgets/home_category.dart';
 import 'package:again_evently/modules/provider/setting_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../widgets/custom_create_tap.dart';
@@ -18,13 +20,14 @@ class _HomeScreenState extends State<HomeScreen> {
   String? userName;
 
   @override
-  void initState() {
+  void initState()  {
     super.initState();
     getCurrentUser();
   }
 
-  void getCurrentUser() {
+  void getCurrentUser() async{
     final user = FirebaseAuth.instance.currentUser;
+    log('token ********* ${await FirebaseMessaging.instance.getToken()}**************');
     if (user != null && user.email != null) {
       final email = user.email!;
       final nameBeforeAt = email.split('@').first;
@@ -42,7 +45,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     var provider = Provider.of<SettingProvider>(context);
-
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
